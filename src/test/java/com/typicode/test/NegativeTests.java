@@ -23,5 +23,4 @@ public class NegativeTests extends BaseTest {
         Assert.assertEquals(user.getId(), 0);
         Assert.assertNull(user.getUserName());
     }
-
 }

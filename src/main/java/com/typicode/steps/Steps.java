@@ -5,6 +5,7 @@ import com.typicode.models.Comment;
 import com.typicode.models.Post;
 import com.typicode.models.User;
 import io.qameta.allure.Step;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,34 +32,29 @@ public class Steps {
     @Step("Get posts by user {user.userName}")
     public List<Post> getPostsByUser(User user) {
         List<Post> posts = clientSteps.getAllPosts();
-        List<Post> postsByUser = posts.stream().filter(post -> post.getUserId() == user.getId())
+        return posts.stream().filter(post -> post.getUserId() == user.getId())
                 .collect(Collectors.toList());
-        return postsByUser;
     }
 
     @Step("Get posts by user id {id}")
     public List<Post> getPostsByUser(int id) {
-        List<Post> posts = clientSteps.getAllPostsByUser(id);
-        return posts;
+        return clientSteps.getAllPostsByUser(id);
     }
 
     @Step("Get comments for post {post.id}")
     public List<Comment> getCommentsByPost(Post post) {
         List<Comment> comments = clientSteps.getAllComments();
-        List<Comment> commentsByPost = comments.stream().filter(comment -> comment.getPostId() == post.getId())
+        return comments.stream().filter(comment -> comment.getPostId() == post.getId())
                 .collect(Collectors.toList());
-        return commentsByPost;
     }
 
     @Step("Get comments for post id {id}")
     public List<Comment> getCommentsByPost(int id) {
-        List<Comment> comments = clientSteps.getCommentsByPost(id);
-        return comments;
+        return clientSteps.getCommentsByPost(id);
     }
 
     @Step("Get comments for post id {id}")
     public List<Comment> getCommentsByPostViaComments(int id) {
-        List<Comment> comments = clientSteps.getCommentsByPostViaComments(id);
-        return comments;
+        return clientSteps.getCommentsByPostViaComments(id);
     }
 }

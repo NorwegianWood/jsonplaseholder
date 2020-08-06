@@ -1,7 +1,7 @@
 package com.typicode.client;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.HttpClients;
@@ -18,7 +18,9 @@ public class ClientBase {
     private final HttpClient client = HttpClients.createDefault();
 
     private static ClientBase clientBase;
-    private ClientBase() {}
+
+    private ClientBase() {
+    }
 
     public static ClientBase getInstance() {
         if (Objects.isNull(clientBase)) {
@@ -41,11 +43,6 @@ public class ClientBase {
             }
             return payload;
         }
-
-        public int getStatus() {
-            return response.getStatusLine().getStatusCode();
-        }
-
     }
 
     private void logRequest(HttpRequestBase request) {
@@ -69,4 +66,10 @@ public class ClientBase {
         logRequest(httpGet);
         return execute(httpGet);
     }
+
+    public String getResponseForRequest(String request) throws IOException {
+        HttpGet getRequest = new HttpGet(request);
+        return clientBase.get(getRequest).getPayload();
+    }
+
 }
